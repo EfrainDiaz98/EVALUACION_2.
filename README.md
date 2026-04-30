@@ -1,6 +1,6 @@
 # Evaluación 2 - Seguridad de la Información 🛡️
 **Estudiante:** Efrain Yair Diaz Anzola  
-**Institución:** Fundación Universitaria Compensar[cite: 1]  
+**Institución:** Fundación Universitaria Compensar  
 **Facultad:** Ingeniería de Telecomunicaciones[cite: 1]
 
 ---
@@ -8,70 +8,85 @@
 ## 1. Parte Conceptual 📚
 
 ### A. Reconocimiento en Footprinting
-* **Reconocimiento Pasivo:** Se realiza sin interactuar directamente con el objetivo (ej. búsquedas en WHOIS, redes sociales o Shodan)[cite: 1].
-* **Reconocimiento Activo:** Implica interacción directa con el sistema para obtener datos precisos (ej. escaneo de puertos con Nmap o banners grabbing)[cite: 1].
+* **Reconocimiento Pasivo:** Se realiza sin interactuar directamente con el objetivo, utilizando fuentes públicas como Shodan o WHOIS[cite: 1].
+* **Reconocimiento Activo:** Implica interacción directa con el sistema, como el escaneo de puertos mediante Nmap[cite: 1].
 
 ### B. Exploits, Payloads y Post-Exploits
-* **Exploit:** Código que aprovecha una vulnerabilidad para ganar acceso[cite: 1].
-* **Payload:** La carga útil que ejecuta la acción deseada tras la explotación (ej. una reverse shell)[cite: 1].
-* **Post-Exploit:** Acciones realizadas tras el compromiso inicial para mantener persistencia o elevar privilegios[cite: 1].
+* **Exploit:** Código o técnica que aprovecha una vulnerabilidad específica[cite: 1].
+* **Payload:** Código que se ejecuta en el sistema víctima tras una explotación exitosa[cite: 1].
+* **Post-Exploit:** Acciones para mantener el control del sistema o escalar privilegios[cite: 1].
 
 **Ejemplos:**
-1. **Exploit:** EternalBlue (MS17-010) aprovechando vulnerabilidades en SMB[cite: 1].
-2. **Payload:** Meterpreter, que permite control total del sistema comprometido en memoria[cite: 1].
+1. **Exploit:** EternalBlue (MS17-010)[cite: 1].
+2. **Payload:** Meterpreter de Metasploit[cite: 1].
 
 ### C. Metasploit en Entornos Reales
-**Metasploit** sirve como un framework de pruebas de penetración para descubrir, explotar y validar vulnerabilidades[cite: 1]. En entornos reales, se usa para:
-* Simular ataques dirigidos para probar la eficacia de los sistemas IDS/IPS[cite: 1].
-* Automatizar la verificación de parches de seguridad en activos críticos[cite: 1].
+Metasploit permite validar vulnerabilidades y probar la efectividad de las defensas de red (IDS/IPS) simulando ataques reales en un entorno controlado[cite: 1].
 
 ### D. Criptografía: Clásica, Cuántica y Post-Cuántica
 | Tipo | Características Principales |
 | :--- | :--- |
-| **Clásica** | Basada en algoritmos matemáticos complejos (RSA, AES) difíciles de resolver para computadoras actuales[cite: 1]. |
-| **Cuántica** | Utiliza principios de la física cuántica (QKD) para detectar la presencia de espías en la comunicación[cite: 1]. |
-| **Post-Cuántica** | Algoritmos matemáticos diseñados para ser resistentes a ataques realizados por futuras computadoras cuánticas[cite: 1]. |
+| **Clásica** | Basada en algoritmos como RSA o AES[cite: 1]. |
+| **Cuántica** | Utiliza la física de partículas para comunicaciones ultra seguras[cite: 1]. |
+| **Post-Cuántica** | Algoritmos matemáticos resistentes a la futura computación cuántica[cite: 1]. |
 
 ### E. Blockchain y Criptomonedas
-El **Blockchain** es un libro de contabilidad digital, descentralizado y distribuido que registra transacciones en múltiples computadoras[cite: 1]. En las criptomonedas, se utiliza para:
-* Garantizar la inmutabilidad de las transacciones sin necesidad de un banco central[cite: 1].
-* Prevenir el problema del doble gasto mediante el consenso de la red[cite: 1].
+Blockchain es un registro descentralizado e inmutable[cite: 1]. Se usa en criptomonedas para evitar el fraude y eliminar intermediarios financieros[cite: 1].
 
 ### F. Seguridad en Sistemas Biométricos
-* **Protocolos:** Se utilizan estándares como **FIDO2** para autenticación segura[cite: 1].
-* **Mecanismos:** Cifrado de plantillas biométricas, detección de "vida" (liveness detection) y almacenamiento en enclaves seguros (TPM)[cite: 1].
+Se utilizan protocolos como FIDO2 y mecanismos de cifrado para proteger las plantillas biométricas almacenadas[cite: 1].
 
 ---
 
-## 2. Parte de Diseño: Estrategia de Defensa para Bitcoin Core ⛓️
+## 2. Parte de Diseño: Estrategia para Bitcoin Core ⛓️
 
-### Matriz de Amenazas (Vectores de Ataque)
+### Matriz de Amenazas
 | Vector de Ataque | Impacto | Probabilidad | Contramedida |
 | :--- | :--- | :--- | :--- |
-| **Ataque a Cadena de Suministro (GitHub)** | Muy Alto (Inyección de malware en el código) | Baja | Firma obligatoria de commits con GPG y auditoría de código por pares[cite: 1]. |
-| **Ataque de Doble Gasto (Nodos)** | Alto (Pérdida de integridad financiera) | Media | Monitoreo de latencia de red y endurecimiento de la configuración de Bitcoin Core[cite: 1]. |
-| **Explotación de vulnerabilidades Zero-day** | Crítico (Caída total de la red) | Media | Programa de Bug Bounty y despliegue de nodos en redes segmentadas con Firewalls[cite: 1]. |
+| **Cadena de Suministro** | Muy Alto | Baja | Firma GPG en commits de GitHub[cite: 1]. |
+| **Ataque de Nodos** | Alto | Media | Segmentación de red y Firewalls[cite: 1]. |
 
-### Informe de Metodología de Hacking Ético
-1. **Reconocimiento:** Identificación de versiones de Bitcoin Core expuestas mediante escaneo de puertos (8333)[cite: 1].
-2. **Escaneo:** Uso de **Nmap** y **Lynis** para encontrar configuraciones débiles en el sistema operativo del nodo[cite: 1].
-3. **Explotación:** Simulación de inyección de código malicioso en el repositorio mediante credenciales robadas (Simulado en laboratorio)[cite: 1].
-4. **Post-Explotación:** Instalación de un backdoor para exfiltrar las llaves privadas del nodo comprometido[cite: 1].
-
----
-
-## 3. Parte Empírica: Implementación de Cadena de Bloques 💻
-
-### Creación de un Bloque Paso a Paso
-1. **Estructura:** El bloque contiene un índice, timestamp, datos (mensajes), hash anterior y su propio hash[cite: 1].
-2. **Cifrado:** Se aplica el algoritmo **SHA-256** al bloque completo[cite: 1].
-3. **Consenso:** El bloque es validado por los nodos antes de ser añadido a la cadena[cite: 1].
-
-### Mensajería entre Servidores
-En mi diseño, el **Servidor A** envía un mensaje cifrado que se empaqueta en el bloque actual; el **Servidor B** valida el hash del bloque anterior para confirmar la integridad del mensaje recibido[cite: 1].
-
-### Criptografía en Blockchain
-Se maneja principalmente **Criptografía Asimétrica** (Llave pública para direcciones y Llave privada para firmas) y **Funciones Hash** (como SHA-256) para enlazar los bloques de forma inmutable[cite: 1].
+### Fases del Hacking Ético Aplicado
+1. **Reconocimiento:** Identificación de nodos Bitcoin activos[cite: 1].
+2. **Escaneo:** Análisis de vulnerabilidades en el servicio Bitcoin Core[cite: 1].
+3. **Explotación:** Intento de compromiso del nodo mediante exploits conocidos[cite: 1].
+4. **Post-Explotación:** Evaluación de la persistencia y acceso a llaves privadas[cite: 1].
 
 ---
-*Evaluación desarrollada para la asignatura de Seguridad de la Información - Ucompensar.*[cite: 1]
+
+## 3. Parte Empírica: Implementación de Blockchain 💻
+
+### Creación de Bloques y Funcionalidad
+La cadena de bloques funciona mediante la vinculación de bloques a través de hashes únicos[cite: 1]. El proceso incluye:
+1. **Bloque Génesis:** El primer bloque de la cadena con hash previo en '0'[cite: 1].
+2. **Hash de Seguridad:** Generado mediante el algoritmo SHA-256[cite: 1].
+
+### Código de Implementación (Python)
+A continuación, se detalla la lógica de creación y hashing de la cadena:
+```python
+import hashlib
+import json
+from time import time
+
+class Blockchain:
+    def __init__(self):
+        self.chain = [] # Crear el primer bloque (Bloque Génesis)
+        self.create_block(proof=1, previous_hash='0', data="Bloque Génesis")
+
+    def create_block(self, proof, previous_hash, data):
+        block = {
+            'index': len(self.chain) + 1,
+            'timestamp': time(),
+            'data': data,
+            'proof': proof,
+            'previous_hash': previous_hash
+        }
+        # Se genera el sello de seguridad usando SHA-256
+        block['hash'] = self.hash(block)
+        self.chain.append(block)
+        return block
+
+    def hash(self, block):
+        # El bloque se convierte en texto para poder generar el hash
+        encoded_block = json.dumps(block, sort_keys=True).encode()
+        return hashlib.sha256(encoded_block).hexdigest()
